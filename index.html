@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="ধাপে ধাপে পদ্ধতি শিখুন, বৈজ্ঞানিক ধারণার গভীরে যান, ভিডিও ও অডিওর মাধ্যমে স্পষ্ট ধারণা নিন এবং ৫টি ইন্টারেক্টিভ গেম খেলে নিজের সিদ্ধান্ত গ্রহণের দক্ষতা বাড়ান।" />
+    <meta name="keywords" content="CABI, Plantwise, Bangladesh, crop diagnosis, pest, disease, agriculture, উদ্ভিদ গোয়েন্দা, DAE, BRRI, BARI" />
+    <link rel="canonical" href="https://cabi.krishiai.live/" />
+
+    <!-- Open Graph / social sharing preview (1200×630) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cabi.krishiai.live/" />
+    <meta property="og:site_name" content="উদ্ভিদ গোয়েন্দা — Plant Detective" />
+    <meta property="og:title" content="উদ্ভিদ গোয়েন্দা — নির্ভুল শনাক্তকরণ, বিশেষজ্ঞ জ্ঞান, হাতে-কলমে অনুশীলন" />
+    <meta property="og:description" content="ধাপে ধাপে পদ্ধতি শিখুন, বৈজ্ঞানিক ধারণার গভীরে যান, ভিডিও ও অডিওর মাধ্যমে স্পষ্ট ধারণা নিন এবং ৫টি ইন্টারেক্টিভ গেম খেলে নিজের সিদ্ধান্ত গ্রহণের দক্ষতা বাড়ান।" />
+    <meta property="og:image" content="https://cabi.krishiai.live/og-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="উদ্ভিদ গোয়েন্দা — Plant Detective: Pinpoint, Know-how, Practice" />
+    <meta property="og:locale" content="bn_BD" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="উদ্ভিদ গোয়েন্দা — নির্ভুল শনাক্তকরণ, বিশেষজ্ঞ জ্ঞান, হাতে-কলমে অনুশীলন" />
+    <meta name="twitter:description" content="ধাপে ধাপে পদ্ধতি শিখুন, বৈজ্ঞানিক ধারণার গভীরে যান, ভিডিও ও অডিওর মাধ্যমে স্পষ্ট ধারণা নিন এবং ৫টি ইন্টারেক্টিভ গেম খেলে নিজের সিদ্ধান্ত গ্রহণের দক্ষতা বাড়ান।" />
+    <meta name="twitter:image" content="https://cabi.krishiai.live/og-share.png" />
+
+    <!-- Prevent ALL browser caching for this shell HTML -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <meta name="theme-color" content="#046A1A" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="উদ্ভিদ গোয়েন্দা" />
+
+    <title>স্মার্ট ফসল রোগ নির্ণয় | CABI Smart Crop Diagnosis</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Apple Touch Icon (180×180 for iOS home screen) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Register service worker — force update on every page load
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+          const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
+          // Check for SW updates every time the page loads
+          registration.update();
+          // Also check every 60 seconds while app is open
+          setInterval(() => registration.update(), 60000);
+        });
+      }
+    </script>
+  </body>
+</html>

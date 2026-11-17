@@ -1,0 +1,125 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import { readFileSync, writeFileSync } from "fs";
+import { resolve } from "path";
+
+// ─── Vercel CDN Fix: Remove crossorigin from built HTML ─────────────────────
+//
+// PROBLEM: Vite 5 adds `crossorigin` to <script type="module"> and
+// <link rel="stylesheet"> during its HTML generation. On Vercel's CDN,
+// this causes CORS failures → CSS 404 → blank page.
+//
+// SOLUTION: Triple-layer defense:
+//   Layer 1 — build.modulePreload: false  → prevents preload links with crossorigin
+//   Layer 2 — transformIndexHtml (enforce:'post') → removes crossorigin from in-memory HTML
+//   Layer 3 — writeBundle hook → removes crossorigin from index.html on disk
+//
+// We KEEP crossorigin on <link rel="preconnect"> for Google Fonts (it's required).
+// We REMOVE crossorigin from <script> and <link rel="stylesheet"> only.
+
+function stripCrossoriginFromScriptsAndStyles(html) {
+  // Remove crossorigin from <script type="module"> tags
+  // e.g. <script type="module" crossorigin src="..."> → <script type="module" src="...">
+  html = html.replace(/(<script\b[^>]*?)\s+crossorigin(?:\s*=\s*(?:"[^"]*"|'[^']*'))?([^>]*?>)/gi, "$1$2");
+  // Remove crossorigin from <link rel="stylesheet"> tags ONLY
+  // (keep crossorigin on <link rel="preconnect"> for Google Fonts — it's required)
+  html = html.replace(
+    /(<link\b[^>]*?rel\s*=\s*(?:"stylesheet"|'stylesheet')[^>]*?)\s+crossorigin(?:\s*=\s*(?:"[^"]*"|'[^']*'))?([^>]*?(?:\/>|>))/gi,
+    "$1$2",
+  );
+  return html;
+}
+
+function removeCrossoriginPlugin() {
+  return {
+    name: "remove-crossorigin-triple",
+    enforce: "post",
+
+    // Layer 2: In-memory HTML transformation (runs during Vite build pipeline)
+    transformIndexHtml(html) {
+      return stripCrossoriginFromScriptsAndStyles(html);
+    },
+
+    // Layer 3: Post-write file system cleanup (runs after all files are written to disk)
+    writeBundle(options) {
+      const outDir = options.dir || "dist";
+      const htmlPath = resolve(outDir, "index.html");
+      try {
+        let html = readFileSync(htmlPath, "utf-8");
+        const cleaned = stripCrossoriginFromScriptsAndStyles(html);
+        if (cleaned !== html) {
+          writeFileSync(htmlPath, cleaned, "utf-8");
+          console.log("[remove-crossorigin] ✅ Stripped crossorigin from dist/index.html");
+        } else {
+          console.log("[remove-crossorigin] ✅ No crossorigin in dist/index.html (already clean)");
+        }
+      } catch (e) {
+        console.warn("[remove-crossorigin] Could not post-process index.html:", e.message);
+      }
+    },
+  };
+}
+
+export default defineConfig({
+  plugins: [react(), tailwindcss(), removeCrossoriginPlugin()],
+
+  // onnxruntime-web ships pre-built .wasm binaries. Vite needs to know
+  // they're assets, not source. Without these excludes, the WASM files
+  // are duplicated and renamed in the build output and ORT can't find them.
+  assetsInclude: ["**/*.wasm"],
+
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+    cssCodeSplit: true,
+    // Layer 1: Disable module preload polyfill — prevents Vite from generating
+    // <link rel="modulepreload"> tags with crossorigin attributes
+    modulePreload: { polyfill: false },
+    rollupOptions: {
+      output: {
+        entryFileNames: "assets/[name]-[hash].js",
+        chunkFileNames: "assets/[name]-[hash].js",
+        assetFileNames(assetInfo) {
+          if (assetInfo.name && assetInfo.name.endsWith(".wasm")) {
+            return "assets/[name][extname]";
+          }
+          return "assets/[name]-[hash].[ext]";
+        },
+        // Split large vendor deps into their own cached chunks
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("onnxruntime")) return "onnxruntime";
+            if (id.includes("motion") || id.includes("framer")) return "motion";
+            if (id.includes("lucide")) return "lucide";
+            if (id.includes("react") || id.includes("scheduler")) return "react-vendor";
+            if (id.includes("jspdf")) return "jspdf";
+            if (id.includes("tailwind") || id.includes("agrichem")) return "agrichem";
+            if (id.includes("@libsql") || id.includes("libsql")) return "libsql";
+            if (id.includes("localforage")) return "localforage";
+            return "vendor";
+          }
+        },
+      },
+    },
+    // onnxruntime-web and friends are legitimately large; 1 MiB per chunk is fine
+    chunkSizeWarningLimit: 1024,
+  },
+
+  optimizeDeps: {
+    // Pre-bundle onnxruntime-web so the first request doesn't trigger
+    // hundreds of micro-imports during dev.
+    include: ["onnxruntime-web"],
+  },
+
+  server: {
+    port: 3000,
+    allowedHosts: [".monkeycode-ai.live"],
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+      },
+    },
+  },
+});
