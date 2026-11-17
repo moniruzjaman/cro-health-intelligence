@@ -1,11 +1,12 @@
 {
-  "name": "cabi-diagnosis",
-  "version": "4.1.0",
-  "description": "উদ্ভিদ গোয়েন্দা (Plant Detective) — AI-powered CABI diagnostic process trainer for Bangladesh farmers, with interactive games, TTS accessibility, and modern mobile-first UI",
+  "name": "cro-health-intelligence",
+  "version": "5.0.0",
+  "description": "উদ্ভিদ গোয়েন্দা (Plant Detective) — CABI Crop Health Intelligence platform for Bangladesh farmers: six-pillar workflow (DETECT→TREAT→PREVENT→MONITOR→EVALUATE→LEARN), AI + offline diagnosis, crop-health case management, IPM guidance and learning games",
   "license": "MIT",
   "keywords": [
     "cabi",
     "plantwise",
+    "crop-health",
     "bangladesh",
     "agriculture",
     "diagnosis",
@@ -16,16 +17,18 @@
     "react",
     "pwa",
     "tts",
-    "farmer-education"
+    "farmer-education",
+    "case-management",
+    "ipm"
   ],
   "author": "Monir Uz Zaman",
-  "homepage": "https://github.com/moniruzjaman/cabi-diagnosis#readme",
+  "homepage": "https://github.com/moniruzjaman/cro-health-intelligence#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/moniruzjaman/cabi-diagnosis.git"
+    "url": "https://github.com/moniruzjaman/cro-health-intelligence.git"
   },
   "bugs": {
-    "url": "https://github.com/moniruzjaman/cabi-diagnosis/issues"
+    "url": "https://github.com/moniruzjaman/cro-health-intelligence/issues"
   },
   "private": true,
   "type": "module",

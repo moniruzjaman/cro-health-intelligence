@@ -1,9 +1,11 @@
-# উদ্ভিদ গোয়েন্দা (Plant Detective)
+# উদ্ভিদ গোয়েন্দা | CABI Crop Health Intelligence
 
-> AI-powered CABI diagnostic process trainer for Bangladesh farmers — learn crop problem identification through guided steps, interactive games, and hands-on diagnosis.
+> **DETECT → TREAT → PREVENT → MONITOR → EVALUATE → LEARN**
+>
+> One crop. One connected case. One continuous intelligence cycle.
 
 ![Smart Agri EcoSystem](https://img.shields.io/badge/Bangladesh-Extension%20Tool-green)
-![Version](https://img.shields.io/badge/version-4.1.0-brightgreen)
+![Version](https://img.shields.io/badge/version-5.0.0-brightgreen)
 ![React](https://img.shields.io/badge/React-18-blue)
 ![Vite](https://img.shields.io/badge/Vite-5-purple)
 ![PWA](https://img.shields.io/badge/PWA-Installable-9cf)
@@ -16,61 +18,76 @@
 
 ## Overview
 
-**উদ্ভিদ গোয়েন্দা (Plant Detective)** is a mobile-first educational app designed to teach Bangladesh farmers and extension workers the **CABI Plantwise 5-step diagnostic process**. Rather than just giving answers, it trains users to systematically identify crop problems — from symptom observation to IPM decision-making.
+**উদ্ভিদ গোয়েন্দা | Crop Health Intelligence** is the six-pillar evolution of the
+[CABI Diagnosis](https://github.com/moniruzjaman/cabi-diagnosis) application — a unified,
+mobile-first Crop Health Intelligence Platform for Bangladesh farmers and DAE extension officers.
 
-The app is production-hardened with zero-trust API security, HMAC request signing, server-side key isolation, and **Turso SQLite** for persistent analytics — with zero Supabase dependencies. The main branch is fully lint-clean (0 errors, 0 warnings) and builds successfully for production deployment.
+A diagnosis report becomes a **crop-health case**; the case collects treatments, follow-up
+observations and reminders; its evaluation promotes a verified personal lesson into the Learn hub —
+closing the intelligence cycle. The production diagnosis engines, datasets, API security and PWA
+from v4.1 are fully preserved.
+
+### The Six Pillars
+
+| Pillar | What it does |
+|---|---|
+| 🔍 **১. শনাক্ত (DETECT)** | AI vision + offline ONNX diagnosis, symptom matching, biotic/abiotic gates, differential candidates with confidence and evidence |
+| 💊 **২. চিকিৎসা (TREAT)** | IPM-first management (cultural, mechanical, biological), registered Bangladesh pesticide products, FRAC/IRAC MoA groups, resistance management, treatment records |
+| 🛡️ **৩. প্রতিরোধ (PREVENT)** | Documented resistant varieties, hygiene & sanitation, rotation, seasonal disease calendar, weather-based risk |
+| 📋 **৪. পর্যবেক্ষণ (MONITOR)** | Crop Health Case Management: cases with crop/variety/district/GPS context, follow-up observations, severity progression, reminders |
+| 📊 **৫. মূল্যায়ন (EVALUATE)** | Before/after severity comparison, outcomes, cost records, verified lessons — with an honest causality disclaimer |
+| 🎓 **৬. শিখুন (LEARN)** | CABI 5-step protocol, 278-image visual field guide, 5 diagnostic games, plus your own promoted field-case lessons |
+
+### Screenshots
+
+| Mobile — Six-Pillar Home | Mobile — Prevention Plan |
+|---|---|
+| ![](docs/screenshots/mobile-home.png) | ![](docs/screenshots/mobile-prevent.png) |
+
+More in [`docs/screenshots/`](docs/screenshots/) (mobile home/dark/prevent/diagnose + desktop home/diagnose).
 
 ---
 
 ## Key Features
 
+### Six-Pillar Crop Health Workflow
+- **Six-Pillar Home Dashboard** — branded welcome header with crop/location/season context, prominent Scan & Diagnose action, pillar navigation grid with live case badges, follow-up reminders, active cases, seasonal risk alerts, recent diagnoses, recommended learning
+- **Crop Health Case Management** — create/update cases (crop, variety, district, growth stage, GPS with permission), severity progression chart, unified timeline, follow-up observations with optional photos, treatment records (type, product, MoA group, cost), monitoring reminders, status lifecycle
+- **Evidence-Preserving Diagnosis** — every saved case records the diagnosis source (AI/offline/manual), provider, confidence and alternatives, so "why was this suggested" stays answerable months later
+- **Intervention Evaluation** — before/after severity comparison, outcome records, cost tracking, user-verified lessons; image comparison alone is never claimed as treatment-effectiveness proof
+- **Field-Case Learning** — promoted case lessons appear in the Learn hub, always labelled personal field experience (never as CABI guidance)
+
 ### Learning-Focused Design
 - **CABI 5-Step Guide** — Step-by-step read-aloud guide covering the full diagnostic protocol (Observation → Exclusion → Disease Triangle → Confirmation → IPM Decision)
 - **5 Interactive Games** — SymptomSpotter, CauseDetective, DiseaseTriangle, FieldScout, IPM Commander — practice each diagnostic step through play
-- **Learning Path** — Visual timeline guiding users through Guide → Game → Diagnose progression
 - **Read-Aloud TTS** — Bengali text-to-speech accessibility for illiterate farmers (volume icon on every section)
 
-### Smart Diagnosis
+### Smart Diagnosis (preserved from v4.1)
 - **AI-Powered Identification** — Multi-provider AI waterfall (Gemini 2.5 Flash → OpenRouter Qwen-VL → Groq Llama4 Scout → Gemini text → Emergency fallback) for crop problem diagnosis
-- **Crop-Doctor Diagnostic Engine (v4.1)** — Offline rule-based engine upgraded with doctoral advice ported from `crop-doctor`: language normalization + canonical synonym resolution, IDF-weighted cross-language symptom matching (EN/BN parity), normalized abiotic/biotic exclusion gates, token-set Jaccard vision fusion, and additive evidence-based confidence scoring
+- **Crop-Doctor Diagnostic Engine (v4.1)** — Offline rule-based engine with language normalization + canonical synonym resolution, IDF-weighted cross-language symptom matching (EN/BN parity), normalized abiotic/biotic exclusion gates, token-set Jaccard vision fusion, and additive evidence-based confidence scoring
 - **On-Device Vision Models** — MobileNetV3 (PlantVillage) + ViT ensemble running fully in-browser via ONNX Runtime Web; models sourced from [`moniruzjaman/kaggle-dataset`](https://github.com/moniruzjaman/kaggle-dataset) with provenance recorded in `public/models/manifest.json`
-- **Image Analysis** — Upload up to 3 photos for AI visual diagnosis with proper preview rendering
-- **278 Symptom Images** — Visual reference gallery for pest, disease, and deficiency identification (all stored locally, no external storage dependency)
+- **Image Analysis** — Upload up to 4 photos for AI visual diagnosis; crop auto-detection from the first image
+- **278 Symptom Images** — Visual reference gallery for pest, disease, and deficiency identification (all stored locally)
 - **Bangladesh Context** — DAE, BRRI, BARI recommendations; local pesticide brands and dosage
-- **Weather-Aware** — Real-time temperature, humidity, rainfall with pest-risk assessment
-- **Spraying Conditions** — Wind, UV, and rain-based spray timing guidance
+- **Weather-Aware** — Real-time temperature, humidity, rainfall with pest-risk assessment and spray-timing guidance
 - **AI Copilot** — Floating assistant button available on every page for contextual help
 
 ### Modern Mobile-First UI
-- **Bottom Navigation** — 4-tab bar (Calendar → Learn → Diagnose → Library) with green active indicator
-- **Copilot FAB** — Floating action button for AI assistance accessible across all pages
-- **Clean Card Layout** — Soft shadows, rounded corners, neutral background
-- **Hero Banner** — Green gradient with floating leaf animations and prominent CTAs
-- **Weather Dashboard** — Temperature, humidity, and rainfall metrics in colored cards
-- **Crop Calendar** — 12-month planting/harvesting calendar with weather and price comparison
+- **Bottom Navigation** — 5-tab bar (Home → Calendar → Diagnose → Learn → Pesticide); the six pillars live inside the Home dashboard and workflows, not as extra tabs
 - **Dark Mode** — Full dark theme support with CSS custom properties and design tokens
 - **PWA Installable** — Works offline as a native-like app on Android/iOS
-
-### Rich Content Library
-- **Video Gallery** — 9 categorized tutorial videos from Google Drive (Introduction, Diagnosis, Management, Pests)
-- **YouTube Integration** — @AgriWisdomBd channel embed for Plant Detective playlists
-- **CABI Ready Reckoner** — Full ETL (Economic Threshold Level) tables, IPM Pyramid, Nutrient deficiency guide
-- **External Apps Hub** — Quick links to Krishi AI, GAP Brinjal, CIRDAP GreenLoop
-- **Diagnosis History** — Saved past reports with crop, district, and date tracking
 
 ### Pesticide Database (বালাইনাশক tab)
 - **AgriChem Guide & Pest Control Database** embedded as its own tab: DAE/PTAC-registered products, MoA rotation planner, dosage calculator, PPE checklists and regulatory alerts.
 - **Always up to date with upstream** — the data is synced from the source of truth repo [`moniruzjaman/AgriChem-Guide-Pest-Control-Database`](https://github.com/moniruzjaman/AgriChem-Guide-Pest-Control-Database):
   - `npm run sync:agrichem` clones/fetches upstream into `.agrichem-upstream/` (a plain clone, not a submodule), copies the datasets/types/utils into `src/agrichem/`, regenerates the curated enrichment file, and records the upstream commit SHA in `src/agrichem/data/upstreamMeta.js`.
   - `npm run check:agrichem` exits non-zero if the embedded database is stale (used by CI).
-  - GitHub Action `.github/workflows/sync-agrichem.yml` runs weekly, verifies the build with the synced data, and opens a PR when upstream changes.
   - The tab footer shows a "DB synced" badge with the sync date + upstream commit so provenance is always visible.
 
-### Engagement Features
-- **Award Crests** — Achievement badges for completing each diagnostic game
-- **Social Sharing** — Share diagnoses via Facebook, LinkedIn, and more
-- **Visitor Analytics** — Usage tracking for improvement insights
-- **Feedback System** — User feedback collection with email notification via MailChannels
+### Privacy Commitments
+- Crop photos are **never uploaded** to any server.
+- Case thumbnails are stored on-device only, and only with explicit per-case consent.
+- Unverified user feedback is never auto-promoted into authoritative agricultural knowledge.
 
 ---
 
@@ -88,6 +105,10 @@ This app follows a **zero-trust security model** — no secrets ever reach the f
 | **Input Validation** | Message structure validation, image size/count limits, HTML escaping on all user inputs. |
 | **Security Headers** | `vercel.json` enforces X-Content-Type-Options, X-Frame-Options, Referrer-Policy, and Content-Security-Policy. |
 
+Crop-health cases are **local-first** (device storage) by design — no database migration is
+required. See [`docs/six-pillar-architecture.md`](docs/six-pillar-architecture.md) for the data
+model and the documented future server-sync path.
+
 ---
 
 ## Bangladesh Coverage
@@ -98,7 +119,7 @@ This app follows a **zero-trust security model** — no secrets ever reach the f
 | **Diseases** | 200+ crop diseases with symptom descriptions and treatment recommendations |
 | **Districts** | 25+ Bangladesh districts with local context |
 | **Seasons** | Boro, Aman, Aus, Rabi, Kharif-1, Kharif-2 |
-| **Pesticides** | 72+ DAE-approved products with local brand names |
+| **Pesticides** | 5,453 registered products (AgriChem DB) with local brand names |
 | **Symptom Images** | 278 locally-hosted diagnostic reference images |
 
 ---
@@ -116,7 +137,7 @@ This app follows a **zero-trust security model** — no secrets ever reach the f
 | **TTS** | Web Speech API (bn-BD) with custom rate/pitch tuning |
 | **PWA** | Service Worker (network-first for API) + Web App Manifest |
 | **Deployment** | Vercel with serverless API proxy |
-| **Lint** | ESLint 10 + React Hooks plugin — 0 errors, 0 warnings |
+| **Lint** | ESLint 10 + React Hooks plugin — 0 errors |
 | **Formatting** | Prettier — consistent code style |
 
 ---
@@ -124,75 +145,40 @@ This app follows a **zero-trust security model** — no secrets ever reach the f
 ## Project Structure
 
 ```
-cabi-diagnosis/
+cro-health-intelligence/
 ├── src/
-│   ├── App.jsx                         # Main app (all tabs, navigation, diagnosis flow)
+│   ├── App.jsx                         # Main app: navigation, diagnosis flow, six-pillar dashboard
 │   ├── main.jsx                        # React entry point with Error Boundary
 │   ├── components/
-│   │   ├── CropCalendar.jsx            # 12-month crop calendar view
+│   │   ├── dashboard/
+│   │   │   ├── SixPillarGrid.jsx       # Six-pillar navigation grid (Home)
+│   │   │   └── sixPillars.js           # Shared pillar config (single source of truth)
+│   │   ├── cases/
+│   │   │   ├── CaseManager.jsx         # Crop Health Case Management (MONITOR + EVALUATE)
+│   │   │   └── PreventionPlan.jsx      # Prevention plan view (PREVENT)
 │   │   ├── CropCalendarDashboard.jsx   # Calendar + weather + price comparison
+│   │   ├── UnifiedLearnResourceHub.jsx # Learn hub (protocol, science, games, field-case lessons)
+│   │   ├── VisualDiagnosisLibrary.jsx  # 278-image CABI field guide
 │   │   ├── OnboardingFlow.jsx          # First-use onboarding wizard
 │   │   └── OutbreakList.jsx            # Disease outbreak heatmap & list
-│   ├── games/
-│   │   ├── SymptomSpotter.jsx          # Game: Match symptoms to causes
-│   │   ├── CauseDetective.jsx          # Game: Identify biotic vs abiotic
-│   │   ├── DiseaseTriangle.jsx         # Game: Disease triangle analysis
-│   │   ├── FieldScout.jsx              # Game: Field diagnosis practice
-│   │   ├── IPMCommander.jsx            # Game: IPM decision making
-│   │   ├── SymptomImageGallery.jsx     # Shared image gallery component
-│   │   ├── useTTS.js                   # Custom text-to-speech hook
-│   │   └── imageMap.js                 # 278 symptom image mappings
 │   ├── data/
+│   │   ├── cropHealthCases.js          # Local-first crop-health case store
 │   │   ├── cropCalendar.js             # 12-month crop season data
 │   │   ├── cropDiseases.js             # 200+ disease database
-│   │   ├── cropPriceService.js         # Simulated price engine with trends
+│   │   ├── pesticideRegistry.js        # Registered-product lookup (AgriChem-synced)
+│   │   ├── moaDatabase.js              # FRAC/IRAC MoA groups + rotation guidance
+│   │   ├── agronomicEngine.js          # Season/weather ensemble scoring
 │   │   ├── weatherService.js           # Weather API + disease pressure scoring
-│   │   ├── enhancedCropCalendar.js     # Calendar + weather + price integration
-│   │   ├── agronomicEngine.js          # Agronomic decision support
-│   │   ├── bangladeshDistricts.js      # District geo data
-│   │   ├── bengaliKeywords.js          # Bengali NLP keyword mapping
 │   │   └── themes.js                   # Dark/light theme tokens
-│   └── offline/
-│       ├── index.js                    # Offline diagnosis engine
-│       ├── diagnosticEngine.js         # Rule-based diagnostic logic
-│       └── OfflineDiagnosis.jsx        # Offline UI component
-├── public/
-│   ├── images/                         # 278 diagnostic symptom images (local)
-│   ├── manifest.json                   # PWA manifest
-│   ├── sw.js                           # Service worker (network-first for /api/*)
-│   ├── pesticides.json                 # DAE-approved pesticide database
-│   ├── cabi-logo.jpg                   # CABI branding asset
-│   ├── privacy-policy.html             # Play Store privacy policy
-│   ├── robots.txt                      # Search engine directives
-│   └── favicon.png                     # App icon
-├── api/                                # Vercel serverless functions
-│   ├── _lib/
-│   │   ├── turso.js                    # Turso SQLite client + schema auto-init
-│   │   ├── requestSigning.js           # HMAC-SHA256 auto-derived signing
-│   │   ├── cors.js                     # Hardened CORS with origin allowlist
-│   │   ├── rateLimit.js                # Per-IP rate limiting
-│   │   ├── validation.js              # Input sanitization & limits
-│   │   └── htmlEscape.js              # HTML entity escaping
-│   ├── diagnose.js                     # AI diagnosis proxy (multi-provider waterfall)
-│   ├── diagnoses.js                    # Diagnosis history CRUD (Turso)
-│   ├── analytics.js                    # Usage tracking (Turso)
-│   ├── feedback.js                     # User feedback + email (Turso + MailChannels)
-│   ├── presence.js                     # Online presence heartbeat (Turso)
-│   ├── storage.js                      # File metadata storage (Turso)
-│   ├── dashboard.js                    # Live analytics dashboard (Turso)
-│   ├── outbreaks.js                    # Outbreak data endpoint
-│   ├── crop-prices.js                  # Crop price data endpoint
-│   ├── weather.js                      # Weather proxy endpoint
-│   ├── health.js                       # Health check endpoint
-│   ├── signing-token.js                # Request signing token generation
-│   └── test.js                         # Admin test endpoint (auto-derived auth)
+│   ├── offline/                        # Offline ONNX diagnosis (ViT, PlantVillage, ensemble)
+│   ├── games/                          # 5 CABI diagnostic games
+│   └── agrichem/                       # Embedded AgriChem pesticide app
+├── public/                             # PWA assets, models, 278 images, privacy policy
+├── api/                                # Vercel serverless functions (HMAC-signed)
+├── docs/                               # Audit, architecture, release notes, screenshots
 ├── setup-vercel-env.sh                 # One-command Vercel env var setup
 ├── vercel.json                         # Deployment config + security headers
-├── .env.example                        # Environment variable reference
-├── eslint.config.js                    # ESLint flat config with JSX support
-├── index.html
-├── package.json
-└── vite.config.js
+└── .env.example                        # Environment variable reference
 ```
 
 ---
@@ -203,29 +189,21 @@ cabi-diagnosis/
 
 ```bash
 # Clone the repo
-git clone https://github.com/moniruzjaman/cabi-diagnosis.git
-cd cabi-diagnosis
+git clone https://github.com/moniruzjaman/cro-health-intelligence.git
+cd cro-health-intelligence
 
 # Install dependencies
 npm install
 
 # Run dev server
-npm run dev
+npm run dev          # http://localhost:5173
 
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Run linter
-npm run lint
-
-# Auto-fix lint issues
-npm run lint:fix
+# QA gates
+npm run lint         # ESLint
+npm run format:check # Prettier
+npm run build        # Production build
+npm run test:offline # Offline ensemble test suite
 ```
-
-Open [http://localhost:5173](http://localhost:5173)
 
 ### Vision orchestration and privacy
 
@@ -247,27 +225,15 @@ All sensitive operations are server-side. The frontend has **zero secret env var
 
 \* At least one AI provider key is required for diagnosis to work.
 
-**Auto-configured (no manual setup):**
-- Request signing secret — auto-derived from Turso credentials via HMAC-SHA256
-- Admin secret — auto-derived from Turso credentials
-- CORS origins — `*.vercel.app` auto-allowed
-
 **Quick setup:** Run `bash setup-vercel-env.sh` to configure all Vercel env vars interactively.
 
 ### Turso Database Setup (Free)
 
 ```bash
-# Install Turso CLI
 curl -sSfL https://get.tur.so/install.sh | bash
-
-# Create database
-turso db create cabi-diagnosis
-
-# Get connection URL
-turso db show cabi-diagnosis --url
-
-# Create auth token
-turso db tokens create cabi-diagnosis
+turso db create cro-health-intelligence
+turso db show cro-health-intelligence --url
+turso db tokens create cro-health-intelligence
 ```
 
 Tables are auto-created on first API call — no manual migrations needed.
@@ -286,14 +252,14 @@ The app is PWA-enabled. On Android Chrome:
 ## Deploy to Vercel
 
 ```bash
-# Option 1: Connect GitHub repo at vercel.com
-# Option 2: Quick env setup
-bash setup-vercel-env.sh
-
-# Then push to main — Vercel auto-deploys
+npm i -g vercel
+vercel          # preview deployment
+vercel --prod   # production
 ```
 
-**Vercel:** Connect your GitHub repo at [vercel.com](https://vercel.com)
+Or connect the GitHub repo at [vercel.com](https://vercel.com) for auto-deploys on push. See
+[`docs/six-pillar-release-notes.md`](docs/six-pillar-release-notes.md) for full deployment steps
+and rollback notes.
 
 ---
 
@@ -301,57 +267,46 @@ bash setup-vercel-env.sh
 
 | Tab | Bangla | Icon | Purpose |
 |-----|--------|------|---------|
-| Crop Calendar | ক্যালেন্ডার | Calendar | 12-month planting/harvesting calendar with weather + price comparison |
-| Learn | শিখুন | Book | CABI 5-Step Guide + 5 interactive games hub |
-| Diagnose | নির্ণয় | Microscope | AI-powered crop problem identification with image analysis |
-| Library | ভান্ডার | Books | Videos, slides, readings, apps hub, diagnosis history |
-| Copilot | — | FAB | Floating AI assistant available on every page |
+| Home | হোম | Home | Six-pillar dashboard: welcome context, Scan & Diagnose, pillar grid, cases, reminders, risk, learning picks |
+| Crop Calendar | ক্যালেন্ডার | Calendar | 12-month planting/harvesting calendar with weather + price comparison + outbreak alerts |
+| Diagnose | নির্ণয় | Microscope | AI + offline diagnosis with image analysis; report feeds the case workflow |
+| Learn | শিখুন | Book | CABI 5-step protocol, visual library, games, field-case lessons |
+| Pesticide | বালাইনাশক | Leaf | AgriChem registered-product database, MoA rotation, dosage calculator |
 
 ---
 
 ## Changelog
 
+### v5.0.0 — Six-Pillar Crop Health Intelligence Transformation
+- **Six-Pillar Home Dashboard** — branded welcome header (crop/location/season context), prominent Scan & Diagnose action, six-pillar navigation grid with live case badges, follow-up reminders widget, active cases widget, seasonal risk alerts, recent diagnoses, recommended learning
+- **Crop Health Case Management (MONITOR)** — local-first case store mirroring the logical entity model (crop_health_cases, case_observations, diagnosis_evidence, treatment_records, prevention_actions, monitoring_records, evaluation_results, learning_insights) with stable IDs, timestamps and verification fields; cases carry crop/variety/district/GPS context, severity progression chart, unified timeline, follow-up observations, treatment records and monitoring reminders
+- **Intervention Evaluation (EVALUATE)** — before/after severity comparison, outcome/cost/lesson records, user-verification flag, explicit causality disclaimer (image comparison alone never claimed as treatment-effectiveness proof)
+- **Prevention Plan (PREVENT)** — documented resistant varieties, hygiene, rotation and seasonal disease calendar derived from the agronomic datasets via `resolveCropKey`; nothing invented
+- **Diagnosis → Case bridge (DETECT/TREAT)** — the report gains "কেসে সংরক্ষণ" (Save to Case, with full evidence: source, provider, confidence, alternatives) and "প্রতিরোধ দেখুন" actions
+- **Field-Case Learning (LEARN)** — "মাঠ-কেস শিক্ষা" sub-view in the Learn hub showing the farmer's own promoted case lessons, labelled personal field experience
+- **Privacy by design** — case photos only persisted as on-device thumbnails with explicit per-case consent (default off), never uploaded
+- Baseline v4.1 functionality fully preserved: diagnosis waterfall, offline ONNX engine, AgriChem DB, PWA, API security, 5-tab navigation
+
 ### v4.1.0 — Doctoral-Advice Diagnosis Upgrade (crop-doctor port) & On-Device Model Verification
-- **Language normalization layer** (`src/data/bengaliKeywords.js`) — `normalizeSymptomText()` / `tokenizeSymptomText()` lowercase, strip punctuation, and apply word-boundary-safe canonical synonym resolution via the `SYMPTOM_SYNONYMS` doctoral-advice dictionary ported from `crop-doctor`; Bengali input now translates with multi-match symmetry so EN and BN queries produce identical rankings
-- **IDF-weighted cross-language matcher** (`src/data/cropDiseases.js`) — symptom matching is now coverage-aware (precision/recall → F1 style `matchRatio`) with inverse-document-frequency weighting so generic terms can't dominate; deterministic tie-breaking replaces first-wins ambiguity
-- **Normalized exclusion gates** (`src/offline/diagnosticEngine.js`) — biotic-weighted abiotic/biotic assessment; all four exclusion gates (insect/virus/bacterial/fungal signs) use the shared `hasSign()` normalized helper instead of raw substring checks
-- **Evidence-based confidence** — replaced the suspect-count heuristic with an additive `evidenceScore` (0–100): top-match quality (×55), discriminative margin (×20), resolved abiotic/biotic call (+8), gates eliminated (+4 each), environmental data (+5), ≥3 symptoms (+6), vision corroboration (+6); bands: high ≥62 with matchRatio ≥0.4, medium ≥38, else low
-- **Hardened vision fusion** — model labels are matched to diseases via token-set Jaccard similarity (max over EN/BN token sets) so a generic label can't hijack a specific disease; vision-only evidence is capped at the "medium" band and fusion is deterministic
-- **MobileNet / PlantVillage / Kaggle models verified functional** — all ONNX assets present under `public/models/` (`plantvillage/mobilenetv3-light`, `plantvillage/trained-128`, `crop_leaf_diseases_vit.onnx`), manifest v2.0.0 points to the source-of-truth repo [`moniruzjaman/kaggle-dataset`](https://github.com/moniruzjaman/kaggle-dataset); inference, routing (`visionRouter.js`), and ensemble (`leafEnsemble.js`) paths tested — no rollback needed
-- **Regression suite green** — `node src/offline/test.js` passes (exit 0), including EN/BN parity and tie-break assertions
+- **Language normalization layer** (`src/data/bengaliKeywords.js`) — canonical synonym resolution via the `SYMPTOM_SYNONYMS` doctoral-advice dictionary; Bengali input translates with multi-match symmetry so EN and BN queries produce identical rankings
+- **IDF-weighted cross-language matcher** (`src/data/cropDiseases.js`) — coverage-aware symptom matching with inverse-document-frequency weighting and deterministic tie-breaking
+- **Normalized exclusion gates** (`src/offline/diagnosticEngine.js`) — biotic-weighted abiotic/biotic assessment; all four exclusion gates use the shared `hasSign()` normalized helper
+- **Evidence-based confidence** — additive `evidenceScore` (0–100) replacing the suspect-count heuristic
+- **Hardened vision fusion** — token-set Jaccard disease matching; vision-only evidence capped at "medium"
+- **MobileNet / PlantVillage / Kaggle models verified functional** — all ONNX assets present under `public/models/`, manifest v2.0.0 points to the source-of-truth repo
+- **Regression suite green** — `npm run test:offline` passes, including EN/BN parity and tie-break assertions
 
 ### v4.0.0 — Production Hardening & Turso Migration
-- Replaced Supabase with Turso SQLite — no more quota limits, no more project pausing, generous free tier (9GB storage, 1B reads/month)
-- Completely removed all Supabase dependencies, configs, and references — zero Supabase in codebase
-- Zero-trust API security — HMAC-SHA256 request signing, no frontend secrets
-- Auto-derived secrets — `API_SIGNING_SECRET` and `ADMIN_SECRET` eliminated, derived from Turso credentials
-- Hardened CORS — explicit origin allowlist, auto-allow `*.vercel.app` deployments
-- Fixed diagnosis image preview — data URL persistence, proper CSS sizing, error handling
-- Rate limiting — per-IP rate limiting on diagnosis endpoint
-- Input validation — message structure validation, image size/count limits, HTML escaping
-- Persistent analytics — visit tracking, section events, online presence via Turso
-- Simplified deployment — 5 env vars (down from 7+), one-command Vercel setup script
-- Rearranged tab navigation — Calendar → Learn → Diagnose → Library; Copilot as floating FAB
-- Production-grade lint — 0 errors, 0 warnings (ESLint 10 + React Hooks plugin)
-- Dark mode — full theme support with CSS custom properties and design tokens
-- 278 locally-hosted symptom images — no external storage dependency
+- Replaced Supabase with Turso SQLite; zero-trust API security with HMAC-SHA256 request signing; auto-derived secrets; hardened CORS; rate limiting; input validation; persistent analytics
 
 ### v3.0 — AI Rewrite
-- Multi-provider AI waterfall (Gemini → Groq → OpenRouter)
-- Vercel serverless API proxy (hides API keys server-side)
-- Real-time weather + GPS/IP location with pest-risk engine
-- Voice input (Web Speech API) + read-aloud (TTS) accessibility
+- Multi-provider AI waterfall; Vercel serverless API proxy; real-time weather + GPS/IP location; voice input + TTS
 
 ### v2.0 — UI Overhaul
-- Plantix-inspired tabbed navigation
-- Bangladesh pesticide dataset (72 DAE-approved products)
-- 5 CABI protocol games + Game Hub
-- PWA install support + social sharing
+- Tabbed navigation; Bangladesh pesticide dataset; 5 CABI protocol games; PWA install + social sharing
 
 ### v1.0 — Initial Release
-- Basic Gemini-powered diagnosis
-- CABI 5-step guide
-- Symptom image gallery
+- Basic Gemini-powered diagnosis; CABI 5-step guide; symptom image gallery
 
 ---
 
@@ -359,6 +314,7 @@ bash setup-vercel-env.sh
 
 **Supported by:** CABI Plantwise · DAE Bangladesh · BRRI · BARI
 **Built with:** React · Vite · Turso SQLite · Gemini AI · Google Fonts
+**Upstream:** [cabi-diagnosis](https://github.com/moniruzjaman/cabi-diagnosis) · [AgriChem Guide & Pest Control Database](https://github.com/moniruzjaman/AgriChem-Guide-Pest-Control-Database)
 **YouTube:** [@AgriWisdomBd](https://youtube.com/@AgriWisdomBd)
 
 ---
